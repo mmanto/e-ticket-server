@@ -15,8 +15,11 @@ const usuarioSchema = new Schema({
     },
     email: {
         type: String,
+    },
+    cuit: {
+        type: String,
         unique: true,
-        required: [ true, 'El correo es necesario' ]
+        required: [ true, 'El cuit es requerido' ]
     },
     password: {
         type: String,
@@ -39,6 +42,7 @@ usuarioSchema.method('compararPassword', function( password: string = ''): boole
 
 
 interface IUsuario extends Document {
+    cuit: string;
     nombre: string;
     email: string;
     password: string;

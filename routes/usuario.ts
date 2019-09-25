@@ -12,7 +12,7 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
 
     const body = req.body;
 
-    Usuario.findOne({ email: body.email }, ( err, userDB ) => {
+    Usuario.findOne({ cuit: body.cuit }, ( err, userDB ) => {
 
         if ( err ) throw err;
 
@@ -27,6 +27,7 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
 
             const tokenUser = Token.getJwtToken({
                 _id: userDB._id,
+                cuit: userDB.cuit,
                 nombre: userDB.nombre,
                 email: userDB.email,
                 avatar: userDB.avatar
@@ -56,6 +57,7 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
 userRoutes.post('/create', ( req: Request, res: Response ) => {
 
     const user = {
+        cuit     : req.body.cuit,
         nombre   : req.body.nombre,
         email    : req.body.email,
         password : bcrypt.hashSync(req.body.password, 10),
@@ -65,6 +67,7 @@ userRoutes.post('/create', ( req: Request, res: Response ) => {
     Usuario.create( user ).then( userDB => {
 
         const tokenUser = Token.getJwtToken({
+            cuit     : req.body.cuit,
             _id: userDB._id,
             nombre: userDB.nombre,
             email: userDB.email,
@@ -94,6 +97,7 @@ userRoutes.post('/create', ( req: Request, res: Response ) => {
 userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
 
     const user = {
+        cuit     : req.body.cuit || req.usuario.cuit,
         nombre: req.body.nombre || req.usuario.nombre,
         email : req.body.email  || req.usuario.email,
         avatar: req.body.avatar || req.usuario.avatar
@@ -112,6 +116,7 @@ userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
 
         const tokenUser = Token.getJwtToken({
             _id: userDB._id,
+            cuit     : req.body.cuit,
             nombre: userDB.nombre,
             email: userDB.email,
             avatar: userDB.avatar

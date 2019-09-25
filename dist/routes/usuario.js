@@ -12,7 +12,7 @@ const userRoutes = express_1.Router();
 // Login
 userRoutes.post('/login', (req, res) => {
     const body = req.body;
-    usuario_model_1.Usuario.findOne({ email: body.email }, (err, userDB) => {
+    usuario_model_1.Usuario.findOne({ cuit: body.cuit }, (err, userDB) => {
         if (err)
             throw err;
         if (!userDB) {
@@ -24,6 +24,7 @@ userRoutes.post('/login', (req, res) => {
         if (userDB.compararPassword(body.password)) {
             const tokenUser = token_1.default.getJwtToken({
                 _id: userDB._id,
+                cuit: userDB.cuit,
                 nombre: userDB.nombre,
                 email: userDB.email,
                 avatar: userDB.avatar
@@ -44,6 +45,7 @@ userRoutes.post('/login', (req, res) => {
 // Crear un usuario
 userRoutes.post('/create', (req, res) => {
     const user = {
+        cuit: req.body.cuit,
         nombre: req.body.nombre,
         email: req.body.email,
         password: bcrypt_1.default.hashSync(req.body.password, 10),
@@ -51,6 +53,7 @@ userRoutes.post('/create', (req, res) => {
     };
     usuario_model_1.Usuario.create(user).then(userDB => {
         const tokenUser = token_1.default.getJwtToken({
+            cuit: req.body.cuit,
             _id: userDB._id,
             nombre: userDB.nombre,
             email: userDB.email,
@@ -70,6 +73,7 @@ userRoutes.post('/create', (req, res) => {
 // Actualizar usuario
 userRoutes.post('/update', autenticacion_1.verificaToken, (req, res) => {
     const user = {
+        cuit: req.body.cuit || req.usuario.cuit,
         nombre: req.body.nombre || req.usuario.nombre,
         email: req.body.email || req.usuario.email,
         avatar: req.body.avatar || req.usuario.avatar
@@ -85,6 +89,7 @@ userRoutes.post('/update', autenticacion_1.verificaToken, (req, res) => {
         }
         const tokenUser = token_1.default.getJwtToken({
             _id: userDB._id,
+            cuit: req.body.cuit,
             nombre: userDB.nombre,
             email: userDB.email,
             avatar: userDB.avatar

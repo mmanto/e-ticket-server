@@ -16,8 +16,11 @@ const usuarioSchema = new mongoose_1.Schema({
     },
     email: {
         type: String,
+    },
+    cuit: {
+        type: String,
         unique: true,
-        required: [true, 'El correo es necesario']
+        required: [true, 'El cuit es requerido']
     },
     password: {
         type: String,

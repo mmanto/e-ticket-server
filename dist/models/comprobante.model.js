@@ -20,7 +20,17 @@ const comprobanteSchema = new mongoose_1.Schema({
     importeTotal: {
         type: Number
     },
-    items: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Items' }],
+    items: [{
+            created: {
+                type: Date
+            },
+            concepto: {
+                type: String
+            },
+            importe: {
+                type: Number
+            },
+        }],
     usuario: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Usuario',

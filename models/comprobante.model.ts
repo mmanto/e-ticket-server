@@ -21,7 +21,18 @@ const comprobanteSchema = new Schema({
     importeTotal: {
         type: Number   
     },
-    items : [{ type: Schema.Types.ObjectId, ref: 'Items' }],
+    items : [{ 
+        created: {
+            type: Date
+        },
+        concepto: {
+            type: String
+        },
+        
+        importe: {
+            type: Number   
+        },
+    }],
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
@@ -41,7 +52,19 @@ interface IComprobante extends Document {
     cuit : string;
     numero : string;
     importeTotal : number;
-    items : [Schema.Types.ObjectId];
+    items : [{
+        created: {
+            type: Date
+        },
+        concepto: {
+            type: string
+        },
+        
+        importe: {
+            type: number   
+        },
+    }];
+
     usuario: string;
 }
 

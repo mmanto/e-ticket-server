@@ -1,8 +1,11 @@
 import { Router, Request, Response } from 'express';
+import { Afip } from '../classes/afip';
 
 
 
 const afipRoutes = Router();
+
+const afip = new Afip;
 
 
 // Login
@@ -17,15 +20,30 @@ afipRoutes.post('/login', (req: Request, res: Response ) => {
     // body.email body.password
 
     // Realiza consulta a afip sobre el usuario.
-    if ( true ) {
+    afip.obTiposComprobantes().then(d => {
         return res.json({
-            ok: false,
+            ok: 'ok',
+            datos: d,
             cuit: user.cuit,
             password: user.password
         });
-    }
-
-   
     });
+
+});
+
+    /*
+    if ( true ) {
+        return res.json({
+            ok: false,
+            datos: afip.obTiposComprobantes(),
+            cuit: user.cuit,
+            password: user.password
+        });
+        
+    }
+*/
+   
+    
+    
 
 export default afipRoutes;

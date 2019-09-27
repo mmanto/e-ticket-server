@@ -13,7 +13,9 @@ interface ILoginTicket {
   expirationTime: string;
 }
 
-  export default class Afip{
+  export class Afip{
+
+    constructor(){};
 
     private loginTicket: LoginTicket = new LoginTicket();
 
@@ -34,16 +36,19 @@ interface ILoginTicket {
     obTiposComprobantes() {
 
       const wsfev1: Wsfev1 = new Wsfev1("https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL");
+
+      return wsfev1.FEDummy({});
+      /*
       const d = wsfev1.FEDummy({}).then( d => {
-        console.log(d);
+        console.log('obTiposComprobantes(): ' + d);
       });
-       
+       */
     }
 
-  }
+  };
 
-  var afip = new Afip();
-  afip.obTiposComprobantes();
+  // var afip = new Afip();
+  // afip.obTiposComprobantes();
 
   
   

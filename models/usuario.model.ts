@@ -5,22 +5,40 @@ import bcrypt from 'bcrypt';
 
 const usuarioSchema = new Schema({
 
-    nombre: {
+    nombre: { // Razón social
         type: String,
         required: [ true, 'El nombre es necesario' ]
     },
-    avatar: {
+
+    domicilio: {
         type: String,
-        default: 'av-1.png'
+        required: [ true, 'El domicilio es necesario' ]
     },
+
+    cuit: {
+        type: String,
+        required: [ true, 'El CUIT es necesario' ]
+    },
+
+    iibb: {
+        type: String,
+        required: [ true, 'IIBB es necesario' ]
+    },
+
+    inicioActividad: {
+        type: Date,
+        required: [ true, 'Inicio de actividades es necesario' ]
+    },
+
+    respAnteIva: {
+        type: String,
+        required: [ true, 'Responsabilidad ante IVA es necesario' ]
+    },
+
     email: {
         type: String,
     },
-    cuit: {
-        type: String,
-        unique: true,
-        required: [ true, 'El cuit es requerido' ]
-    },
+
     password: {
         type: String,
         required: [ true, 'La contraseña es necesaria']
@@ -42,11 +60,22 @@ usuarioSchema.method('compararPassword', function( password: string = ''): boole
 
 
 interface IUsuario extends Document {
+   
+    nombre: string; 
+
     cuit: string;
-    nombre: string;
+
+    domicilio: string; 
+
+    iibb: string;
+
+    inicioActividad: Date;
+
+    respAnteIva: string;
+
     email: string;
+    
     password: string;
-    avatar: string;
 
     compararPassword(password: string): boolean;
 }

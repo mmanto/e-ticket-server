@@ -30,7 +30,6 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
                 cuit: userDB.cuit,
                 nombre: userDB.nombre,
                 email: userDB.email,
-                avatar: userDB.avatar
             });
 
             res.json({
@@ -57,21 +56,27 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
 userRoutes.post('/create', ( req: Request, res: Response ) => {
 
     const user = {
-        cuit     : req.body.cuit,
-        nombre   : req.body.nombre,
+        nombre      : req.body.nombre, // Razón social
+        domicilio   : req.body.domicilio,
+        cuit        : req.body.cuit,
+        iibb        : req.body.iibb,
+        inicioActividad : req.body.inicioActividad,
+        respAnteIva : req.body.respAnteIva,
         email    : req.body.email,
-        password : bcrypt.hashSync(req.body.password, 10),
-        avatar   : req.body.avatar
+        password : bcrypt.hashSync(req.body.password, 10)
     };
 
     Usuario.create( user ).then( userDB => {
 
         const tokenUser = Token.getJwtToken({
-            cuit     : req.body.cuit,
-            _id: userDB._id,
             nombre: userDB.nombre,
+            domicilio : userDB.domicilio,
+            cuit     : userDB.cuit,
+            iibb     : userDB.iibb,
+            inicioActividad : userDB.inicioActividad,
+            respAnteIva : userDB.respAnteIva,
+            _id: userDB._id,
             email: userDB.email,
-            avatar: userDB.avatar
         });
 
         res.json({
@@ -93,7 +98,7 @@ userRoutes.post('/create', ( req: Request, res: Response ) => {
 });
 
 
-// Actualizar usuario
+// Actualizar usuario TODO
 userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
 
     const user = {
@@ -119,7 +124,6 @@ userRoutes.post('/update', verificaToken, (req: any, res: Response ) => {
             cuit     : req.body.cuit,
             nombre: userDB.nombre,
             email: userDB.email,
-            avatar: userDB.avatar
         });
 
         res.json({

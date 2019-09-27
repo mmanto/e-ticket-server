@@ -5,34 +5,35 @@ import bcrypt from 'bcrypt';
 
 const usuarioSchema = new Schema({
 
+
     nombre: { // Razón social
         type: String,
-        required: [ true, 'El nombre es necesario' ]
+        required: [true, 'El nombre es necesario']
     },
 
     domicilio: {
         type: String,
-        required: [ true, 'El domicilio es necesario' ]
+        required: [true, 'El domicilio es necesario']
     },
 
     cuit: {
         type: String,
-        required: [ true, 'El CUIT es necesario' ]
+        required: [true, 'El CUIT es necesario']
     },
 
     iibb: {
         type: String,
-        required: [ true, 'IIBB es necesario' ]
+        required: [true, 'IIBB es necesario']
     },
 
     inicioActividad: {
         type: Date,
-        required: [ true, 'Inicio de actividades es necesario' ]
+        required: [true, 'Inicio de actividades es necesario']
     },
 
     respAnteIva: {
         type: String,
-        required: [ true, 'Responsabilidad ante IVA es necesario' ]
+        required: [true, 'Responsabilidad ante IVA es necesario']
     },
 
     email: {
@@ -41,17 +42,21 @@ const usuarioSchema = new Schema({
 
     password: {
         type: String,
-        required: [ true, 'La contraseña es necesaria']
+        required: [true, 'La contraseña es necesaria']
     }
 
 });
 
 
-usuarioSchema.method('compararPassword', function( password: string = ''): boolean {
+usuarioSchema.method('compararPassword', function (password: string = ''): boolean {
 
-    if (  bcrypt.compareSync( password, this.password ) ) {
+
+    if (bcrypt.compareSync(password, this.password)) {
+
         return true;
+
     } else {
+
         return false;
     }
 
@@ -60,12 +65,12 @@ usuarioSchema.method('compararPassword', function( password: string = ''): boole
 
 
 interface IUsuario extends Document {
-   
-    nombre: string; 
+
+    nombre: string;
 
     cuit: string;
 
-    domicilio: string; 
+    domicilio: string;
 
     iibb: string;
 
@@ -74,7 +79,7 @@ interface IUsuario extends Document {
     respAnteIva: string;
 
     email: string;
-    
+
     password: string;
 
     compararPassword(password: string): boolean;

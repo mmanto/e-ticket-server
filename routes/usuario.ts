@@ -40,9 +40,9 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
             });
 
             res.json({
-                ok                  : false,
+                ok                  : true,
                 token               : tokenUser,
-                user              : userDB 
+                user                : userDB 
             });
 
         } else {

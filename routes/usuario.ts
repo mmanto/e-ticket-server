@@ -26,15 +26,23 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
         if ( userDB.compararPassword( body.password ) ) {
 
             const tokenUser = Token.getJwtToken({
-                _id: userDB._id,
-                cuit: userDB.cuit,
-                nombre: userDB.nombre,
-                email: userDB.email,
+                _id                 : userDB._id,
+                nombre              : userDB.nombre,
+                domicilioCalle      : userDB.domicilioCalle,
+                domicilioNumero     : userDB.domicilioNumero,
+                domicilioLocalidad  : userDB.domicilioLocalidad,
+                domicilioProvincia  : userDB.domicilioProvincia,
+                cuit                : userDB.cuit,
+                iibb                : userDB.iibb,
+                inicioActividad     : userDB.inicioActividad,
+                respAnteIva         : userDB.respAnteIva,
+                email               : userDB.email,
             });
 
             res.json({
-                ok: true,
-                token: tokenUser
+                ok                  : false,
+                token               : tokenUser,
+                user              : userDB 
             });
 
         } else {
@@ -56,27 +64,33 @@ userRoutes.post('/login', (req: Request, res: Response ) => {
 userRoutes.post('/create', ( req: Request, res: Response ) => {
 
     const user = {
-        nombre      : req.body.nombre, // Razón social
-        domicilio   : req.body.domicilio,
-        cuit        : req.body.cuit,
-        iibb        : req.body.iibb,
-        inicioActividad : req.body.inicioActividad,
-        respAnteIva : req.body.respAnteIva,
-        email    : req.body.email,
-        password : bcrypt.hashSync(req.body.password, 10)
+        nombre              : req.body.nombre, // Razón social
+        domicilioCalle      : req.body.domicilioCalle,
+        domicilioNumero     : req.body.domicilioNumero,
+        domicilioLocalidad  : req.body.domicilioLocalidad,
+        domicilioProvincia  : req.body.domicilioProvincia,
+        cuit                : req.body.cuit,
+        iibb                : req.body.iibb,
+        inicioActividad     : req.body.inicioActividad,
+        respAnteIva         : req.body.respAnteIva,
+        email               : req.body.email,
+        password            : bcrypt.hashSync(req.body.password, 10)
     };
 
     Usuario.create( user ).then( userDB => {
 
         const tokenUser = Token.getJwtToken({
-            nombre: userDB.nombre,
-            domicilio : userDB.domicilio,
-            cuit     : userDB.cuit,
-            iibb     : userDB.iibb,
-            inicioActividad : userDB.inicioActividad,
-            respAnteIva : userDB.respAnteIva,
-            _id: userDB._id,
-            email: userDB.email,
+            nombre              : userDB.nombre,
+            domicilioCalle      : userDB.domicilioCalle,
+            domicilioNumero     : userDB.domicilioNumero,
+            domicilioLocalidad  : userDB.domicilioLocalidad,
+            domicilioProvincia  : userDB.domicilioProvincia,
+            cuit                : userDB.cuit,
+            iibb                : userDB.iibb,
+            inicioActividad     : userDB.inicioActividad,
+            respAnteIva         : userDB.respAnteIva,
+            _id                 : userDB._id,
+            email               : userDB.email,
         });
 
         res.json({

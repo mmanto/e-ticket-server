@@ -1,6 +1,7 @@
 
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { StringifyOptions } from 'querystring';
 
 
 const usuarioSchema = new Schema({
@@ -11,9 +12,23 @@ const usuarioSchema = new Schema({
         required: [true, 'El nombre es necesario']
     },
 
-    domicilio: {
+    domicilioCalle: {
         type: String,
         required: [true, 'El domicilio es necesario']
+    },
+
+    domicilioNumero: {
+        type: String,
+    },
+
+    domicilioLocalidad: {
+        type: String,
+        required: [true, 'La localidad es requerida.']
+    },
+
+    domicilioProvincia: {
+        type: String,
+        required: [true, 'La provincia es requerida.']  
     },
 
     cuit: {
@@ -70,7 +85,13 @@ interface IUsuario extends Document {
 
     cuit: string;
 
-    domicilio: string;
+    domicilioCalle: string;
+
+    domicilioNumero: string;
+
+    domicilioLocalidad: string;
+
+    domicilioProvincia: String;
 
     iibb: string;
 

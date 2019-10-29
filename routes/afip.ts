@@ -20,14 +20,7 @@ afipRoutes.post('/login', (req: Request, res: Response ) => {
     // body.email body.password
 
     // Realiza consulta a afip sobre el usuario.
-    afip.obTiposComprobantes().then(d => {
-        return res.json({
-            ok: 'ok',
-            datos: d,
-            cuit: user.cuit,
-            password: user.password
-        });
-    });
+    afip.obLoginTicket();
 
 });
 

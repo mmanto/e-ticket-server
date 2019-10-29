@@ -2,8 +2,8 @@ import { LoginTicket, Wsfev1 } from "afip-apis";
 
 const DEFAULT_URLWSAAWSDL: string = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL";
 const DEFAULT_SERVICIO: string = "wsfe";
-const DEFAULT_CERTIFICATE: string = "cert.pem";
-const DEFAULT_CERTIFICATE_KEY: string = "MiClavePrivada";
+const DEFAULT_CERTIFICATE: string = "./cert/cert.pem";
+const DEFAULT_CERTIFICATE_KEY: string = "./cert/MiClavePrivada";
 
 interface ILoginTicket {
   source: string;
@@ -38,17 +38,17 @@ interface ILoginTicket {
       const wsfev1: Wsfev1 = new Wsfev1("https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL");
 
       return wsfev1.FEDummy({});
-      /*
+      
       const d = wsfev1.FEDummy({}).then( d => {
         console.log('obTiposComprobantes(): ' + d);
       });
-       */
+      
     }
 
   };
 
-  // var afip = new Afip();
-  // afip.obTiposComprobantes();
+   var afip = new Afip();
+   afip.obLoginTicket();
 
   
   
